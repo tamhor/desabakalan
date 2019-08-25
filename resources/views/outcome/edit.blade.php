@@ -9,9 +9,8 @@
     <div class="form-group">
     <label for="category">Kategori</label>
     <select class="form-control" name="out_category" id="category">
-      @foreach ($categories as $ctg)
-      <option value="{{$ctg->id}}">{{$ctg->name}}</option>
-      @endforeach
+      <option value="Belanja Langsung" selected>Belanja Langsung</option>
+      <option value="Belanja Tidak Langsung">Belanja Tidak Langsung</option>
     </select>
     </div>
     <div class="form-group">

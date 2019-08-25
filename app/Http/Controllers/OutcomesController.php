@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Outcome;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OutcomesController extends Controller
 {
@@ -14,7 +15,9 @@ class OutcomesController extends Controller
      */
     public function index()
     {
-        return view('outcome.outcome');
+        $outcomes = Outcome::all();
+        // dd($outcomes);
+        return view('outcome.outcome', compact('outcomes'));
     }
 
     /**
@@ -24,7 +27,8 @@ class OutcomesController extends Controller
      */
     public function create()
     {
-        return view('students.create');
+        $categories = DB::table('categories')->get();
+        return view('outcome.create', compact('categories'));
     }
 
     /**
@@ -35,7 +39,14 @@ class OutcomesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'out_category' => 'required',
+            'out_description' => 'required',
+            'out_balance' => 'required'
+        ]);
+
+        Outcome::create($request->all());
+        return redirect('/outcome')->with('status', 'Data sudah berhasil ditambahkan!');
     }
 
     /**
@@ -57,7 +68,7 @@ class OutcomesController extends Controller
      */
     public function edit(Outcome $outcome)
     {
-        //
+        return view('outcome.create', compact('outcome'));
     }
 
     /**
@@ -80,6 +91,7 @@ class OutcomesController extends Controller
      */
     public function destroy(Outcome $outcome)
     {
-        //
+        Outcome::destroy($outcome->id);
+        return redirect('/outcome')->with('status', 'Data sudah berhasil dihapus!');
     }
 }

@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::get('/income', 'IncomesController@index');
 Route::get('/outcome', 'OutcomesController@index');
 Route::get('/outcomes/create', 'OutcomesController@create');
+Route::post('/outcome', 'OutcomesController@store');
+Route::delete('/outcome/{outcome}', 'OutcomesController@destroy');
+Route::get('/outcome/{outcome}/edit', 'OutcomesController@edit');

@@ -15,9 +15,10 @@ class CreateOutcomesTable extends Migration
     {
         Schema::create('outcomes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('out_category');
+            $table->integer('out_category');
             $table->string('out_description');
-            $table->integer('out_balance');
+            $table->string('out_balance');
+            $table->string('out_info');
             $table->timestamps();
         });
     }
