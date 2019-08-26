@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Outcome extends Model
 {
-    protected $fillable = ['out_category','out_description','out_balance'];
+    protected $fillable = ['out_category','out_description','out_balance','out_info'];
 
-    public function outcome(){
-        return $this->hasMany(Category::class);
+    public function category(){
+        return $this->belongsTo(Category::class, 'out_category', 'id');
     }
 }

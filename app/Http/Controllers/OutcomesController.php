@@ -15,7 +15,7 @@ class OutcomesController extends Controller
      */
     public function index()
     {
-        $outcomes = Outcome::all();
+        $outcomes = Outcome::with('category')->get();
         // dd($outcomes);
         return view('outcome.outcome', compact('outcomes'));
     }
@@ -57,7 +57,7 @@ class OutcomesController extends Controller
      */
     public function show(Outcome $outcome)
     {
-        //
+        return $outcome;
     }
 
     /**
@@ -68,7 +68,9 @@ class OutcomesController extends Controller
      */
     public function edit(Outcome $outcome)
     {
-        return view('outcome.create', compact('outcome'));
+        $categories = DB::table('categories')->get();
+
+        return view('outcome.edit', compact('outcome','categories'));
     }
 
     /**
@@ -80,7 +82,20 @@ class OutcomesController extends Controller
      */
     public function update(Request $request, Outcome $outcome)
     {
-        //
+        $request->validate([
+            'out_category' => 'required',
+            'out_description' => 'required',
+            'out_balance' => 'required'
+        ]);
+        
+        Outcome::where('id', $outcome->id)
+                ->update([
+                    'out_category' => $request->out_category,
+                    'out_description' => $request->out_description,
+                    'out_balance' => $request->out_balance,
+                    'out_info' => $request->out_info
+                ]);
+        return redirect('/outcome')->with('status', 'Data sudah berhasil di Ubah!');
     }
 
     /**

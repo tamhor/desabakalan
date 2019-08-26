@@ -20,4 +20,6 @@ Route::get('/outcome', 'OutcomesController@index');
 Route::get('/outcomes/create', 'OutcomesController@create');
 Route::post('/outcome', 'OutcomesController@store');
 Route::delete('/outcome/{outcome}', 'OutcomesController@destroy');
+Route::patch('/outcome/{outcome}', 'OutcomesController@update');
+Route::get('/outcome/{outcome}', 'OutcomesController@show');
 Route::get('/outcome/{outcome}/edit', 'OutcomesController@edit');

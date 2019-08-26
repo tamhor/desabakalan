@@ -32,6 +32,3 @@
     <button type="submit" class="btn btn-primary">Tambah Data</button>
   </form>
 @endsection
-@section('script')
-
-@endsection
