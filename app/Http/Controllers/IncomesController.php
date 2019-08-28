@@ -14,7 +14,7 @@ class IncomesController extends Controller
      */
     public function index()
     {
-        return view('income');
+        return view('income.income');
     }
 
     /**
@@ -46,7 +46,8 @@ class IncomesController extends Controller
      */
     public function show(Income $income)
     {
-        //
+        $blog = TbBlog::find($id);
+        return view('site.show',compact('blog'))->renderSections()['content'];
     }
 
     /**

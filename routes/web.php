@@ -25,3 +25,4 @@ Route::get('/', function () {
 // Route::get('/outcome/{outcome}/edit', 'OutcomesController@edit');
 
 Route::resource('outcome', 'OutcomesController');
+Route::resource('income', 'IncomesController');

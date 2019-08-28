@@ -24,7 +24,7 @@
     </div>
     <div class="form-group">
       <label for="price">Harga</label>
-      <input class="form-control @error('out_balance') is-invalid @enderror" id="rupiah" name="out_balance" placeholder="Harga" value="{{ $outcome->out_balance }}">
+      <input class="form-control @error('out_balance') is-invalid @enderror" id="rupiah" name="out_balance" placeholder="Harga" value="{{ formatRp($outcome->out_balance) }}">
       @error('out_balance')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
     <div class="form-group">

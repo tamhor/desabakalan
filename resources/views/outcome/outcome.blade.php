@@ -34,7 +34,7 @@
             <td>{{ date('d F y', strtotime($item->created_at)) }}</td>
             <td>{{ $item->category->name }}</td>
             <td>{{ $item->out_description }}</td>
-            <td>{{ formatRupiah($item->out_balance) }}</td>
+            <td>{{ formatRp($item->out_balance) }}</td>
             <td>{{ $item->out_info }}</td>
             <td>
                 <a href="outcome/{{ $item->id }}/edit" class="badge badge-success" title="Ubah data">

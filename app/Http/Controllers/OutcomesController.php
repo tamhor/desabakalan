@@ -39,18 +39,17 @@ class OutcomesController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'out_category' => 'required',
             'out_description' => 'required',
             'out_balance' => 'required'
-        ]);
-        if ($request->out_balance) {
-            $rupiah = $request->out_balance;
-            intval(preg_replace('/,.*|[^0-9]/', '', $rupiah));
-            return true;
-        }
-        
-        Outcome::create($request->all());
+            ]);
+            
+        $data = $request->all();
+        $data['out_balance'] = intval(preg_replace('/,.*|[^0-9]/', '', $request->out_balance));
+
+        Outcome::create($data);
         return redirect('/outcome')->with('status', 'Data sudah berhasil ditambahkan!');
     }
 
@@ -92,12 +91,15 @@ class OutcomesController extends Controller
             'out_description' => 'required',
             'out_balance' => 'required'
         ]);
+
+        $data = $request->all();
+        $data['out_balance'] = intval(preg_replace('/,.*|[^0-9]/', '', $request->out_balance));
         
         Outcome::where('id', $outcome->id)
                 ->update([
                     'out_category' => $request->out_category,
                     'out_description' => $request->out_description,
-                    'out_balance' => $request->out_balance,
+                    'out_balance' => $data['out_balance'],
                     'out_info' => $request->out_info
                 ]);
         return redirect('/outcome')->with('status', 'Data sudah berhasil di Ubah!');
