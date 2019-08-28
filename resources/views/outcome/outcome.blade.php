@@ -5,7 +5,7 @@
 @section('content')
 <h2 class="display-4 my-3">Data Pengeluaran</h2>
 <form class="form-inline my-2 d-flex justify-content-between">
-<a href="/outcomes/create" class="btn btn-primary my-2">Tambah Data Pengeluaran</a>
+<a href="/outcome/create" class="btn btn-primary my-2">Tambah Data Pengeluaran</a>
 @if (session('status'))
     <div class="alert alert-success alert-dismissible fade show">
         {{ session('status') }}
@@ -34,13 +34,13 @@
             <td>{{ date('d F y', strtotime($item->created_at)) }}</td>
             <td>{{ $item->category->name }}</td>
             <td>{{ $item->out_description }}</td>
-            <td>{{ $item->out_balance }}</td>
+            <td>{{ formatRupiah($item->out_balance) }}</td>
             <td>{{ $item->out_info }}</td>
             <td>
                 <a href="outcome/{{ $item->id }}/edit" class="badge badge-success" title="Ubah data">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
-                <a href="" class="badge badge-danger" data-toggle="modal" data-target="#HapusData" title="Hapus data">
+                <a href="#" data-target="#HapusData" id="asyu" class="badge badge-danger deleteProduct" data-toggle="modal" data-id="{{ $item->id }}" title="Hapus data">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
                 <a href="" class="badge badge-primary" title="Cetak data">
@@ -66,7 +66,7 @@
         </div>
         <div class="modal-footer">
             <a class="btn btn-secondary text-white" data-dismiss="modal">Kembali</a>
-            <form method="post" action="outcome/{{ $item->id }}" class="d-inline">
+            <form method="post" class="d-inline" id="FormHapus" action="">
                 @method('delete')
                 @csrf
                 <button type="submit" class="btn btn-danger" title="Hapus data">
@@ -80,5 +80,10 @@
 
 @endsection
 @section('script')
-
+<script>
+$(document).on('click', '.deleteProduct', function () {
+    var data_id = $(this).data("id");
+    $('#FormHapus').attr('action', 'outcome/'+data_id)
+});
+</script>
 @endsection

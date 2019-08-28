@@ -44,7 +44,12 @@ class OutcomesController extends Controller
             'out_description' => 'required',
             'out_balance' => 'required'
         ]);
-
+        if ($request->out_balance) {
+            $rupiah = $request->out_balance;
+            intval(preg_replace('/,.*|[^0-9]/', '', $rupiah));
+            return true;
+        }
+        
         Outcome::create($request->all());
         return redirect('/outcome')->with('status', 'Data sudah berhasil ditambahkan!');
     }
@@ -107,6 +112,7 @@ class OutcomesController extends Controller
     public function destroy(Outcome $outcome)
     {
         Outcome::destroy($outcome->id);
+        // dd($outcome->id);
         return redirect('/outcome')->with('status', 'Data sudah berhasil dihapus!');
     }
 }
