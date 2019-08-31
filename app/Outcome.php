@@ -11,4 +11,7 @@ class Outcome extends Model
     public function category(){
         return $this->belongsTo(Category::class, 'out_category', 'id');
     }
+    public function income(){
+        return $this->hasMany(Income::class);
+    }
 }

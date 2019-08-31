@@ -6,6 +6,7 @@
 <h2 class="display-4 my-3">Data Pengeluaran</h2>
 <form class="form-inline my-2 d-flex justify-content-between">
 <a href="/outcome/create" class="btn btn-primary my-2">Tambah Data Pengeluaran</a>
+
 @if (session('status'))
     <div class="alert alert-success alert-dismissible fade show">
         {{ session('status') }}
@@ -15,6 +16,9 @@
     </div>
 @endif
 </form>
+    <span class="btn btn-outline-secondary mb-3">
+        Saldo PAD : {{ formatRp($income->sum('in_balance')-$category->sum('out_balance')) }}
+    </span>
 <table id="data-table" class="table dt-responsive nowrap" style="width:100%">
     <thead class="thead-dark">
       <tr>
@@ -28,7 +32,7 @@
       </tr>
     </thead>
     <tbody>
-        @foreach ($outcomes as $item)
+        @foreach ($category as $item)
         <tr>
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ date('d F y', strtotime($item->created_at)) }}</td>

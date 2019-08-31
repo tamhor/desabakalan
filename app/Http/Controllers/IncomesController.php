@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Income;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IncomesController extends Controller
 {
@@ -14,7 +15,10 @@ class IncomesController extends Controller
      */
     public function index()
     {
-        return view('income.income');
+        $category = Income::with('category')->get();
+        $outcome = DB::table('outcomes')->get();
+        // dd($category);
+        return view('income.income', compact('category','outcome'));
     }
 
     /**
@@ -24,7 +28,9 @@ class IncomesController extends Controller
      */
     public function create()
     {
-        //
+        $categories = DB::table('categories')->OrderBy('id', 'desc')->limit(5)->get();
+
+        return view('income.create', compact('categories'));
     }
 
     /**
@@ -35,7 +41,16 @@ class IncomesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'in_category' => 'required',
+            'in_balance' => 'required'
+            ]);
+            
+        $data = $request->all();
+        $data['in_balance'] = intval(preg_replace('/,.*|[^0-9]/', '', $request->in_balance));
+
+        Income::create($data);
+        return redirect('/income')->with('status', 'Data pendapatan sudah berhasil ditambahkan!');
     }
 
     /**
@@ -46,8 +61,7 @@ class IncomesController extends Controller
      */
     public function show(Income $income)
     {
-        $blog = TbBlog::find($id);
-        return view('site.show',compact('blog'))->renderSections()['content'];
+
     }
 
     /**

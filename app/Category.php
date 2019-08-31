@@ -9,4 +9,8 @@ class Category extends Model
     public function outcome(){
         return $this->hasMany(Outcome::class, 'out_category', 'id');
     }
+    
+    public function income(){
+        return $this->hasMany(Income::class, 'in_category', 'id');
+    }
 }

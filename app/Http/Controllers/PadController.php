@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Finance;
+use App\Pad;
 use Illuminate\Http\Request;
 
-class FinancesController extends Controller
+class PadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class FinancesController extends Controller
      */
     public function index()
     {
-        
+        //
     }
 
     /**
@@ -41,10 +41,10 @@ class FinancesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Finance  $finance
+     * @param  \App\Pad  $pad
      * @return \Illuminate\Http\Response
      */
-    public function show(Finance $finance)
+    public function show(Pad $pad)
     {
         //
     }
@@ -52,10 +52,10 @@ class FinancesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Finance  $finance
+     * @param  \App\Pad  $pad
      * @return \Illuminate\Http\Response
      */
-    public function edit(Finance $finance)
+    public function edit(Pad $pad)
     {
         //
     }
@@ -64,10 +64,10 @@ class FinancesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Finance  $finance
+     * @param  \App\Pad  $pad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Finance $finance)
+    public function update(Request $request, Pad $pad)
     {
         //
     }
@@ -75,10 +75,10 @@ class FinancesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Finance  $finance
+     * @param  \App\Pad  $pad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Finance $finance)
+    public function destroy(Pad $pad)
     {
         //
     }

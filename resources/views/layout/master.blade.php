@@ -31,8 +31,8 @@
               --PAD--
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{ url('/income') }}" title="Pemasukkan Pendapatan Asli Desa">Pendapatan</a>
-              <a class="dropdown-item" href="{{ url('/outcome') }}" title="Pengeluaran">Pengeluaran</a>
+              <a class="dropdown-item" href="{{ url('/income') }}" title="Pemasukkan Pendapatan Asli Desa">(PAD) Pendapatan</a>
+              <a class="dropdown-item" href="{{ url('/outcome') }}" title="Pengeluaran">(PAD) Pengeluaran</a>
             </div>
           </li>
         </ul>
@@ -82,14 +82,6 @@
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp ' + rupiah : '');
       }
-    </script>
-    <script>
-      $(document).on('ajaxComplete ready', function () {
-          $('.modalMd').off('click').on('click', function () {
-              $('#modalMdContent').load($(this).attr('value'));
-              $('#modalMdTitle').html($(this).attr('title'));
-          });
-      });
     </script>
     @yield('script')
   </body>

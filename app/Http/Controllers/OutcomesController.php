@@ -15,9 +15,10 @@ class OutcomesController extends Controller
      */
     public function index()
     {
-        $outcomes = Outcome::with('category')->get();
-        // dd($outcomes);
-        return view('outcome.outcome', compact('outcomes'));
+        $category = Outcome::with('category')->get();
+        $income = DB::table('incomes')->get();
+        // dd($category);
+        return view('outcome.outcome', compact('category','income'));
     }
 
     /**
@@ -27,7 +28,8 @@ class OutcomesController extends Controller
      */
     public function create()
     {
-        $categories = DB::table('categories')->get();
+        $categories = DB::table('categories')->limit(2)->get();
+        // dd($categories);
         return view('outcome.create', compact('categories'));
     }
 
@@ -49,8 +51,12 @@ class OutcomesController extends Controller
         $data = $request->all();
         $data['out_balance'] = intval(preg_replace('/,.*|[^0-9]/', '', $request->out_balance));
 
+        // $balance = DB::table('outcomes')->sum($data);
+        
+        // dd($request->sum['out_balance']);
+
         Outcome::create($data);
-        return redirect('/outcome')->with('status', 'Data sudah berhasil ditambahkan!');
+        return redirect('/outcome')->with('status', 'Data sudah pengeluaran berhasil ditambahkan!');
     }
 
     /**
@@ -102,7 +108,7 @@ class OutcomesController extends Controller
                     'out_balance' => $data['out_balance'],
                     'out_info' => $request->out_info
                 ]);
-        return redirect('/outcome')->with('status', 'Data sudah berhasil di Ubah!');
+        return redirect('/outcome')->with('status', 'Data <b>pengeluaran</b> sudah berhasil di Ubah!');
     }
 
     /**
