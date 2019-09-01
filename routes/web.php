@@ -26,4 +26,3 @@ Route::get('/', function () {
 
 Route::resource('outcome', 'OutcomesController');
 Route::resource('income', 'IncomesController');
-Route::resource('finance', 'FinancesController');

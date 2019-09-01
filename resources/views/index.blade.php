@@ -3,5 +3,5 @@
 @section('title' , 'Aplikasi Keuangan Desa Bakalan')
 
 @section('content')
-Hello Home
+    <h1 class="display-4">Hello Blade, Mari Kita kembali Berkarya!!!</h1>
 @endsection

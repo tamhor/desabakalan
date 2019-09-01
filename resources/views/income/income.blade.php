@@ -39,14 +39,11 @@
             <td>{{ formatRp($item->in_balance) }}</td>
             <td>{{ $item->in_info }}</td>
             <td>
-                <a href="outcome/{{ $item->id }}/edit" class="badge badge-success" title="Ubah data">
+                <a href="income/{{ $item->id }}/edit" class="badge badge-success" title="Ubah data">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
                 <a href="#" data-target="#HapusData" id="asyu" class="badge badge-danger deleteProduct" data-toggle="modal" data-id="{{ $item->id }}" title="Hapus data">
                     <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-                <a href="" class="badge badge-primary" title="Cetak data">
-                    <i class="fa fa-print" aria-hidden="true"></i>
                 </a>
             </td>
         </tr>

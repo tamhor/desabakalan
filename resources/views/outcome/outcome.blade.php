@@ -3,6 +3,28 @@
 @section('title' , 'Aplikasi Keuangan Desa Bakalan')
 
 @section('content')
+<style>
+@media screen {
+  #printSection {
+      display: none;
+  }
+}
+
+@media print {
+  body * {
+    visibility:hidden;
+  }
+  #printSection, #printSection * {
+    visibility:visible;
+  }
+  #printSection {
+    position: absolute;
+    width: 100%;
+    top:0;
+  }
+}
+</style>
+
 <h2 class="display-4 my-3">Data Pengeluaran</h2>
 <form class="form-inline my-2 d-flex justify-content-between">
 <a href="/outcome/create" class="btn btn-primary my-2">Tambah Data Pengeluaran</a>
@@ -44,10 +66,12 @@
                 <a href="outcome/{{ $item->id }}/edit" class="badge badge-success" title="Ubah data">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
-                <a href="#" data-target="#HapusData" id="asyu" class="badge badge-danger deleteProduct" data-toggle="modal" data-id="{{ $item->id }}" title="Hapus data">
+                <a href="#" data-target="#HapusData" class="badge badge-danger deleteData" data-toggle="modal" data-id="{{ $item->id }}" title="Hapus data">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
-                <a href="" class="badge badge-primary" title="Cetak data">
+                <a href="#" data-target="#PrintData" data-toggle="modal" class="badge badge-primary printData"
+                data-harga="{{ terbilang($item->out_balance) }}" data-uraian="{{ $item->out_description }}" data-rp="{{ formatRp($item->out_balance) }}" 
+                title="Cetak data">
                     <i class="fa fa-print" aria-hidden="true"></i>
                 </a>
             </td>
@@ -82,12 +106,89 @@
     </div>
 </div>
 
+<div class="modal fade" id="PrintData" tabindex="-1" role="dialog" aria-labelledby="PrintDataLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="PrintDataLabel">Cetak Data</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" id="kwitansi">
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                    <h4 class="card-title">Kwitansi Pengeluaran - Desa Bakalan</h4>
+                    <hr>
+                    <form class="card-text">
+                        <h5>Terima Dari : Bendahara Desa</h5>
+                        <div class="form-inline row">
+                        <label class="col-3">Terbilang </label><input class="form-control ml-2 col-8" id="harga" disabled/>
+                        </div>
+                        <div class="form-inline row mt-1">
+                        <label class="col-3">Untuk Pembayaran </label><input class="form-control ml-2 col-8" id="uraian" disabled/>
+                        </div>
+                        <hr>
+                    </form>
+                    <div class="form-inline justify-content-between">
+                        <input type="text" id="rp" style="width: 18rem;" class="form-control" disabled/>
+                    <h6 class="card-link">Bakalan, {{ date('d F Y') }}</h6>
+
+                    </div>
+                    <div class="form-inline justify-content-end mt-5">
+                        <p class="card-link">_______________</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-secondary text-white" data-dismiss="modal">Kembali</a>
+            <button type="submit" id="btnPrint" class="btn btn-danger" title="Cetak data">
+                Cetak
+            </button>
+        </div>
+        </div>
+    </div>
+</div>
+
+
 @endsection
 @section('script')
 <script>
-$(document).on('click', '.deleteProduct', function () {
+$(document).on('click', '.deleteData', function () {
     var data_id = $(this).data("id");
     $('#FormHapus').attr('action', 'outcome/'+data_id)
 });
+</script>
+<script>
+$(document).on('click', '.printData', function () {
+    var harga = $(this).data('harga');
+    var rp = $(this).data('rp');
+    var uraian = $(this).data('uraian');
+    $('#harga').val(harga);
+    $('#uraian').val(uraian);
+    $('#rp').val(rp);
+});
+</script>
+<script>
+document.getElementById("btnPrint").onclick = function () {
+    printElement(document.getElementById("kwitansi"));
+}
+
+function printElement(elem) {
+    var domClone = elem.cloneNode(true);
+    
+    var $printSection = document.getElementById("printSection");
+    
+    if (!$printSection) {
+        var $printSection = document.createElement("div");
+        $printSection.id = "printSection";
+        document.body.appendChild($printSection);
+    }
+    
+    $printSection.innerHTML = "";
+    $printSection.appendChild(domClone);
+    window.print();
+}
 </script>
 @endsection

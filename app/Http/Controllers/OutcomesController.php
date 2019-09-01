@@ -67,7 +67,8 @@ class OutcomesController extends Controller
      */
     public function show(Outcome $outcome)
     {
-        return $outcome;
+        // $outcome = Outcome::find($id);
+        // return view('outcome',compact('outcome'));
     }
 
     /**
@@ -78,7 +79,7 @@ class OutcomesController extends Controller
      */
     public function edit(Outcome $outcome)
     {
-        $categories = DB::table('categories')->get();
+        $categories = DB::table('categories')->limit(2)->get();
 
         return view('outcome.edit', compact('outcome','categories'));
     }
@@ -108,7 +109,7 @@ class OutcomesController extends Controller
                     'out_balance' => $data['out_balance'],
                     'out_info' => $request->out_info
                 ]);
-        return redirect('/outcome')->with('status', 'Data <b>pengeluaran</b> sudah berhasil di Ubah!');
+        return redirect('/outcome')->with('status', 'Data pengeluaran sudah berhasil di Ubah!');
     }
 
     /**
@@ -123,4 +124,5 @@ class OutcomesController extends Controller
         // dd($outcome->id);
         return redirect('/outcome')->with('status', 'Data sudah berhasil dihapus!');
     }
+
 }
