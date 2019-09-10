@@ -15,14 +15,10 @@ Route::get('/', function () {
     return view('index');
 });
 
-// Route::get('/income', 'IncomesController@index');
-// Route::get('/outcome', 'OutcomesController@index');
-// Route::get('/outcomes/create', 'OutcomesController@create');
-// Route::post('/outcome', 'OutcomesController@store');
-// Route::delete('/outcome/{outcome}', 'OutcomesController@destroy');
-// Route::patch('/outcome/{outcome}', 'OutcomesController@update');
-// Route::get('/outcome/{outcome}', 'OutcomesController@show');
-// Route::get('/outcome/{outcome}/edit', 'OutcomesController@edit');
-
+Route::get('outcome/report', 'OutcomesController@report');
 Route::resource('outcome', 'OutcomesController');
 Route::resource('income', 'IncomesController');
+Route::get('outcome/category/{id}', 'OutcomesController@index');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -7,12 +7,17 @@
 <form class="col-5" method="post" id="create" action="/income">
     @csrf
     <div class="form-group">
-    <label for="category">Kategori</label>
-    <select class="form-control" name="in_category" id="category">
-      @foreach ($categories as $ctg)
-      <option value="{{$ctg->id}}">{{$ctg->name}}</option>
+    <label for="source">Kategori</label>
+    <select class="form-control" name="source_id" id="source">
+      @foreach ($source as $src)
+      <option value="{{$src->id}}">{{$src->source}}</option>
       @endforeach
     </select>
+    </div>
+    <div class="form-group">
+      <label for="description">Kegiatan</label>
+      <input type="text" class="form-control @error('in_description') is-invalid @enderror" name="in_description" id="description" placeholder="Uraian kegiatan" value="{{old('in_description')}}">
+        @error('in_description')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
     <div class="form-group">
       <label for="price">Harga</label>

@@ -37,7 +37,7 @@ function terbilang($nilai) {
     } else {
         $hasil = trim(penyebut($nilai))." rupiah";
     }     		
-    return $hasil;
+    return ucwords($hasil);
 }
 
 function tanggal($tanggal)

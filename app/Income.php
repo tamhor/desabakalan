@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Income extends Model
 {
 
-    protected $fillable = ['in_category','in_balance','in_info'];
+    protected $fillable = ['source_id', 'in_category','in_description','in_balance','in_info'];
 
-    public function category(){
-        return $this->belongsTo(Category::class, 'in_category', 'id');
+    public function source(){
+        return $this->belongsTo(Source::class, 'source_id', 'id');
     }
 
     public function outcome(){

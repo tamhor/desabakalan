@@ -7,9 +7,17 @@
 <form class="col-5" method="post" id="create" action="/outcome">
     @csrf
     <div class="form-group">
-    <label for="category">Kategori</label>
+    <label for="source">Sumber</label>
+    <select class="form-control" name="source_id" id="source">
+      @foreach ($source as $src)
+      <option value="{{$src->id}}">{{$src->source}}</option>
+      @endforeach
+    </select>
+    </div>
+    <div class="form-group">
+    <label for="category">Kegiatan</label>
     <select class="form-control" name="out_category" id="category">
-      @foreach ($categories as $ctg)
+      @foreach ($category as $ctg)
       <option value="{{$ctg->id}}">{{$ctg->name}}</option>
       @endforeach
     </select>

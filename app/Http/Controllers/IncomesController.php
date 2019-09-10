@@ -15,10 +15,10 @@ class IncomesController extends Controller
      */
     public function index()
     {
-        $category = Income::with('category')->get();
+        $source = Income::with('source')->where('source_id',1)->get();
         $outcome = DB::table('outcomes')->get();
-        // dd($category);
-        return view('income.income', compact('category','outcome'));
+        //dd($category);
+        return view('income.income', compact('source','outcome'));
     }
 
     /**
@@ -28,9 +28,9 @@ class IncomesController extends Controller
      */
     public function create()
     {
-        $categories = DB::table('categories')->OrderBy('id', 'desc')->limit(5)->get();
+        $source = DB::table('sources')->get();
 
-        return view('income.create', compact('categories'));
+        return view('income.create', compact('source'));
     }
 
     /**
@@ -42,7 +42,9 @@ class IncomesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'source_id' => 'required',
             'in_category' => 'required',
+            'in_description' => 'required',
             'in_balance' => 'required'
             ]);
             
@@ -72,9 +74,9 @@ class IncomesController extends Controller
      */
     public function edit(Income $income)
     {
-        $categories = DB::table('categories')->OrderBy('id', 'desc')->limit(5)->get();
+        $source = DB::table('sources')->get();
 
-        return view('income.edit', compact('income','categories'));
+        return view('income.edit', compact('income','source'));
     }
 
     /**
@@ -87,7 +89,9 @@ class IncomesController extends Controller
     public function update(Request $request, Income $income)
     {
         $request->validate([
+            'source_id' => 'required',
             'in_category' => 'required',
+            'in_description' => 'required',
             'in_balance' => 'required'
         ]);
 
@@ -96,7 +100,9 @@ class IncomesController extends Controller
         
         Income::where('id', $income->id)
                 ->update([
+                    'source_id' => $request->source_id,
                     'in_category' => $request->in_category,
+                    'in_description' => $request->in_description,
                     'in_balance' => $data['in_balance'],
                     'in_info' => $request->in_info
                 ]);

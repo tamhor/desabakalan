@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title' , 'Aplikasi Keuangan Desa Bakalan')
+@section('title' , $title)
 
 @section('content')
 <style>
@@ -25,7 +25,6 @@
 }
 </style>
 
-<h2 class="display-4 my-3">Data Pengeluaran</h2>
 <form class="form-inline my-2 d-flex justify-content-between">
 <a href="/outcome/create" class="btn btn-primary my-2">Tambah Data Pengeluaran</a>
 
@@ -39,38 +38,40 @@
 @endif
 </form>
     <span class="btn btn-outline-secondary mb-3">
-        Saldo PAD : {{ formatRp($income->sum('in_balance')-$category->sum('out_balance')) }}
+        SALDO : {{ formatRp($income->sum('in_balance')-$outcome->sum('out_balance')) }}
     </span>
 <table id="data-table" class="table dt-responsive nowrap" style="width:100%">
     <thead class="thead-dark">
       <tr>
         <th scope="col">No</th>
-        <th scope="col">Date</th>
-        <th scope="col">Categories</th>
-        <th scope="col">Descriptions</th>
-        <th scope="col">Prices</th>
-        <th scope="col">Informartion</th>
-        <th scope="col">Action</th>
+        <th scope="col">Tanggal</th>
+        <th scope="col">Sumber</th>
+        <th scope="col">Kegiatan</th>
+        <th scope="col">Uraian</th>
+        <th scope="col">Harga</th>
+        <th scope="col">Keterangan</th>
+        <th scope="col">Aksi</th>
       </tr>
     </thead>
     <tbody>
-        @foreach ($category as $item)
+        @foreach ($outcome as $item)
         <tr>
             <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ date('d F y', strtotime($item->created_at)) }}</td>
+            <td>{{ $item->source->source }}</td>
             <td>{{ $item->category->name }}</td>
             <td>{{ $item->out_description }}</td>
             <td>{{ formatRp($item->out_balance) }}</td>
             <td>{{ $item->out_info }}</td>
             <td>
-                <a href="outcome/{{ $item->id }}/edit" class="badge badge-success" title="Ubah data">
+                <a href="{{ url('/outcome/'.$item->id.'/edit') }}" class="badge badge-success" title="Ubah data">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
                 <a href="#" data-target="#HapusData" class="badge badge-danger deleteData" data-toggle="modal" data-id="{{ $item->id }}" title="Hapus data">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
                 <a href="#" data-target="#PrintData" data-toggle="modal" class="badge badge-primary printData"
-                data-harga="{{ terbilang($item->out_balance) }}" data-uraian="{{ $item->out_description }}" data-rp="{{ formatRp($item->out_balance) }}" 
+                data-harga="{{ terbilang($item->out_balance) }}" data-uraian="{{ $item->out_description }}" data-rp="{{ formatRp($item->out_balance) }},-" 
                 title="Cetak data">
                     <i class="fa fa-print" aria-hidden="true"></i>
                 </a>
@@ -133,9 +134,13 @@
                     <div class="form-inline justify-content-between">
                         <input type="text" id="rp" style="width: 18rem;" class="form-control" disabled/>
                     <h6 class="card-link">Bakalan, {{ date('d F Y') }}</h6>
-
+                    </div>
+                    <div class="form-inline justify-content-end">
+                    <h6 class="card-link" style="margin-right: 50px;">Bendahara</h6>
+                    <h6 class="card-link mr-5">Penerima</h6>
                     </div>
                     <div class="form-inline justify-content-end mt-5">
+                        <p class="card-link">_______________</p>
                         <p class="card-link">_______________</p>
                     </div>
                 </div>
@@ -150,8 +155,6 @@
         </div>
     </div>
 </div>
-
-
 @endsection
 @section('script')
 <script>

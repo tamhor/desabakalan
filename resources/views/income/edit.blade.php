@@ -8,14 +8,19 @@
     @csrf
     @method('patch')
     <div class="form-group">
-    <label for="category">Kategori</label>
-    <select class="form-control" name="in_category" id="category">
-      @foreach ($categories as $ctg)
-      <option value="{{$ctg->id}}" @if ($ctg->id === $income->in_category)
+    <label for="source">Kategori</label>
+    <select class="form-control" name="source_id" id="source">
+      @foreach ($source as $src)
+      <option value="{{$src->id}}" @if ($src->id === $income->source_id)
           selected
-      @endif>{{$ctg->name}}</option>
+      @endif>{{$src->source}}</option>
       @endforeach
     </select>
+    </div>
+    <div class="form-group">
+      <label for="description">Kegiatan</label>
+      <input type="text" class="form-control @error('in_description') is-invalid @enderror" name="in_description" id="description" placeholder="Uraian kegiatan" value="{{ $income->in_description }}">
+        @error('in_description')<div class="invalid-feedback">{{ $message }}</div>@enderror
     </div>
     <div class="form-group">
       <label for="price">Harga</label>
