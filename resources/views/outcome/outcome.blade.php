@@ -56,10 +56,10 @@
     <tbody>
         @foreach ($outcome as $item)
         <tr>
-            <th scope="row">{{ $loop->iteration }}</th>
+            <td scope="row">{{ $loop->iteration }}</td>
             <td>{{ date('d F y', strtotime($item->created_at)) }}</td>
-            <td>{{ $item->source->source }}</td>
-            <td>{{ $item->category->name }}</td>
+            <td>{{ $item->source }}</td>
+            <td>{{ $item->name }}</td>
             <td>{{ $item->out_description }}</td>
             <td>{{ formatRp($item->out_balance) }}</td>
             <td>{{ $item->out_info }}</td>
@@ -71,7 +71,7 @@
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
                 <a href="#" data-target="#PrintData" data-toggle="modal" class="badge badge-primary printData"
-                data-harga="{{ terbilang($item->out_balance) }}" data-uraian="{{ $item->out_description }}" data-rp="{{ formatRp($item->out_balance) }},-" 
+                data-sumber="{{ $item->source }}" data-harga="{{ terbilang($item->out_balance) }}" data-uraian="{{ $item->name }} - {{ $item->out_description }}" data-rp="{{ formatRp($item->out_balance) }},-" 
                 title="Cetak data">
                     <i class="fa fa-print" aria-hidden="true"></i>
                 </a>
@@ -119,11 +119,14 @@
         <div class="modal-body" id="kwitansi">
             <div class="card" style="width: 100%;">
                 <div class="card-body">
-                    <h4 class="card-title">Kwitansi Pengeluaran - Desa Bakalan</h4>
+                    <h4 class="card-title">Kwitansi Pengeluaran - Desa Bakalan </h4>
                     <hr>
                     <form class="card-text">
                         <h5>Terima Dari : Bendahara Desa</h5>
                         <div class="form-inline row">
+                        <label class="col-3">Sumber Dana </label><input class="form-control ml-2 col-8" id="sumber" disabled/>
+                        </div>
+                        <div class="form-inline row mt-1">
                         <label class="col-3">Terbilang </label><input class="form-control ml-2 col-8" id="harga" disabled/>
                         </div>
                         <div class="form-inline row mt-1">
@@ -160,14 +163,17 @@
 <script>
 $(document).on('click', '.deleteData', function () {
     var data_id = $(this).data("id");
-    $('#FormHapus').attr('action', 'outcome/'+data_id)
+    var APP_URL = {!! json_encode(url('/')) !!};
+    $('#FormHapus').attr('action', APP_URL+'/outcome/'+data_id);
 });
 </script>
 <script>
 $(document).on('click', '.printData', function () {
+    var sumber = $(this).data('sumber');
     var harga = $(this).data('harga');
     var rp = $(this).data('rp');
     var uraian = $(this).data('uraian');
+    $('#sumber').val(sumber);
     $('#harga').val(harga);
     $('#uraian').val(uraian);
     $('#rp').val(rp);

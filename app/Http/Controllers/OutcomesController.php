@@ -13,13 +13,23 @@ class OutcomesController extends Controller{
         if (!empty($id)) {
             $income = DB::table('incomes')->where('in_category', $id)->get();
             $title = DB::table('sources')->where('id', $id)->value('source');
-            $outcome = Outcome::with('source')->where('source_id', $id)->get();
+            // $outcome = Outcome::with('source')->where('source_id', $id)->get();
+            $outcome = DB::table('outcomes')
+                        ->join('sources', 'outcomes.source_id', '=', 'sources.id')
+                        ->join('categories', 'outcomes.out_category', '=', 'categories.id')
+                        ->select('outcomes.*', 'sources.source as source', 'categories.name as name')
+                        ->where('source_id', $id)
+                        ->get();
         }else{
             $income = DB::table('incomes')->get();
             $title = "Data Pengeluaran";
-            $outcome = Outcome::with('source')->get(); 
+            $outcome = DB::table('outcomes')
+            ->join('sources', 'outcomes.source_id', '=', 'sources.id')
+            ->join('categories', 'outcomes.out_category', '=', 'categories.id')
+            ->select('outcomes.*', 'sources.source as source', 'categories.name as name')
+            ->get();
         }
-
+        // dd($outcome->name);
         return view('outcome.outcome', compact('outcome','income','title'));
     }
     

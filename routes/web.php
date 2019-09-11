@@ -15,9 +15,9 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('outcome/report', 'OutcomesController@report');
 Route::resource('outcome', 'OutcomesController');
 Route::resource('income', 'IncomesController');
+Route::get('outcome/report', 'OutcomesController@report');
 Route::get('outcome/category/{id}', 'OutcomesController@index');
 Auth::routes();
 
