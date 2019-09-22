@@ -15,10 +15,11 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::resource('category', 'CategoriesController');
 Route::resource('outcome', 'OutcomesController');
 Route::resource('income', 'IncomesController');
-Route::get('outcome/report', 'OutcomesController@report');
-Route::get('outcome/category/{id}', 'OutcomesController@index');
+Route::get('outcome/source/{id}', 'OutcomesController@index');
+Route::get('category/show/{id}', 'CategoriesController@show');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -13,7 +13,6 @@ class OutcomesController extends Controller{
         if (!empty($id)) {
             $income = DB::table('incomes')->where('in_category', $id)->get();
             $title = DB::table('sources')->where('id', $id)->value('source');
-            // $outcome = Outcome::with('source')->where('source_id', $id)->get();
             $outcome = DB::table('outcomes')
                         ->join('sources', 'outcomes.source_id', '=', 'sources.id')
                         ->join('categories', 'outcomes.out_category', '=', 'categories.id')
@@ -51,7 +50,7 @@ class OutcomesController extends Controller{
         $data['out_balance'] = intval(preg_replace('/,.*|[^0-9]/', '', $request->out_balance));
         Outcome::create($data);
 
-        return redirect('/outcome/category/0')->with('status', 'Data sudah pengeluaran berhasil ditambahkan!');
+        return back()->with('status', 'Data sudah pengeluaran berhasil ditambahkan!');
     }
 
     public function show(Outcome $outcome){
@@ -83,20 +82,17 @@ class OutcomesController extends Controller{
                     'out_info' => $request->out_info
                 ]);
 
-        return redirect('/outcome/category/0')->with('status', 'Data pengeluaran sudah berhasil di Ubah!');
+        return redirect('/category/show/'.$request->out_category)->with('status', 'Data pengeluaran sudah berhasil di Ubah!');
     }
 
     public function destroy(Outcome $outcome){
         Outcome::destroy($outcome->id);
 
-        return redirect('/outcome/category/0')->with('status', 'Data sudah berhasil dihapus!');
+        return redirect('/category/show/'.$outcome->out_category)->with('status', 'Data sudah berhasil dihapus!');
     }
 
     public function report(){
 
-        $outcome = Outcome::with('source')->where('source_id', 1)->get();
-        $pdf = PDF::loadView('outcome.report', compact('outcome'));
-        dd($outcome);
-        return $pdf->stream('report.pdf');
+        return view('outcome.report');
     }
 }

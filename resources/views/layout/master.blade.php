@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
 
     <style>
-    .dropdown:hover .dropdown-menu {
+    .navbar .dropdown:hover .dropdown-menu {
       display: block;
     }
     </style>
@@ -28,29 +28,28 @@
     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url('/') }}">Home</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="{{ url('/outcome/category/0') }}" id="navbarDropdown" role="button">
-              --Pengeluaran--
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="{{ url('/outcome/category/1') }}" title="Pendapatan Asli Desa">Pendapatan Asli Desa</a>
-              <a class="dropdown-item" href="{{ url('/outcome/category/2') }}" title="Alokasi Dana Desa">Alokasi Dana Desa</a>
-              <a class="dropdown-item" href="{{ url('/outcome/category/3') }}" title="Hasil Pajak">Dana Desa</a>
-              <a class="dropdown-item" href="{{ url('/outcome/category/4') }}" title="Hasil Pajak">Bagi Hasil Pajak & Restribusi</a>
-            </div>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/category') }}">Kegiatan</a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <a href="{{ url('/outcome/report') }}" class="btn btn-secondary mr-3">Laporan Pengeluaran</a>
-          <a href="{{ url('/income') }}" class="btn btn-success my-2 my-sm-0">Penerimaan</a>
-        </form>
+        <ul class="form-inline my-2 my-lg-0">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" href="{{ url('/outcome/source/0') }}" id="navbarDropdown" role="button">
+                  Laporan Pengeluaran
+                </button>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ url('/outcome/source/1') }}" title="Pendapatan Asli Desa">Pendapatan Asli Desa</a>
+                  <a class="dropdown-item" href="{{ url('/outcome/source/2') }}" title="Alokasi Dana Desa">Alokasi Dana Desa</a>
+                  <a class="dropdown-item" href="{{ url('/outcome/source/3') }}" title="Hasil Pajak">Dana Desa</a>
+                  <a class="dropdown-item" href="{{ url('/outcome/source/4') }}" title="Hasil Pajak">Bagi Hasil Pajak & Restribusi</a>
+                </div>
+              </div>
+          <a href="{{ url('/income') }}" class="btn btn-success ml-2 my-sm-0">Penerimaan</a>
+        </ul>
       </div>
     </nav>
     <div class="container" style="margin-top:60px;">
-      <h2 class="display-5 my-3">@yield('title')</h2>
+      <h3 class="my-3 text-center">@yield('title')</h3>
       @yield('content')
     </div>
 
