@@ -13,4 +13,8 @@ class Source extends Model
     public function income(){
         return $this->hasMany(Income::class, 'source_id', 'id');
     }
+
+    public function category(){
+        return $this->hasMany(Category::class, 'source_id', 'id');
+    }
 }

@@ -34,17 +34,17 @@
         </ul>
         <ul class="form-inline my-2 my-lg-0">
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" href="{{ url('/outcome/source/0') }}" id="navbarDropdown" role="button">
-                  Laporan Pengeluaran
-                </button>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="{{ url('/outcome/source/0') }}" id="navbarDropdown" role="button">
+                  Laporan
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="{{ url('/outcome/source/1') }}" title="Pendapatan Asli Desa">Pendapatan Asli Desa</a>
                   <a class="dropdown-item" href="{{ url('/outcome/source/2') }}" title="Alokasi Dana Desa">Alokasi Dana Desa</a>
                   <a class="dropdown-item" href="{{ url('/outcome/source/3') }}" title="Hasil Pajak">Dana Desa</a>
                   <a class="dropdown-item" href="{{ url('/outcome/source/4') }}" title="Hasil Pajak">Bagi Hasil Pajak & Restribusi</a>
                 </div>
               </div>
-          <a href="{{ url('/income') }}" class="btn btn-success ml-2 my-sm-0">Penerimaan</a>
+          {{-- <a href="{{ url('/income') }}" class="btn btn-success ml-2 my-sm-0">Penerimaan</a> --}}
         </ul>
       </div>
     </nav>
@@ -93,6 +93,11 @@
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp ' + rupiah : '');
       }
+    </script>
+    <script>
+    $(".alert").fadeTo(2000, 500).slideUp(500, function(){
+      $(".alert").slideUp(500);
+    });
     </script>
     @yield('script')
 

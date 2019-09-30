@@ -17,7 +17,7 @@ class OutcomesController extends Controller{
                         ->join('sources', 'outcomes.source_id', '=', 'sources.id')
                         ->join('categories', 'outcomes.out_category', '=', 'categories.id')
                         ->select('outcomes.*', 'sources.source as source', 'categories.name as name')
-                        ->where('source_id', $id)
+                        ->where('outcomes.source_id', $id)
                         ->get();
         }else{
             $income = DB::table('incomes')->get();

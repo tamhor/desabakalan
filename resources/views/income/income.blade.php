@@ -1,10 +1,9 @@
 @extends('layout.master')
 
-@section('title' , 'Aplikasi Keuangan Desa Bakalan')
+@section('title' , 'Data Pendapatan')
 
 @section('content')
-<h2 class="display-4 my-3">Data Pendapatan</h2>
-<form class="form-inline my-2 d-flex justify-content-between">
+<span class="form-inline my-2 d-flex justify-content-between">
 <a href="/income/create" class="btn btn-primary my-2">Tambah Data Pendapatan</a>
 
 @if (session('status'))
@@ -15,9 +14,9 @@
         </button>
     </div>
 @endif
-</form>
+</span>
 <span class="btn btn-outline-secondary mb-3">
-    Saldo PAD : {{ formatRp($source->sum('in_balance')-$outcome->sum('out_balance')) }}
+    Saldo : {{ formatRp($source->sum('in_balance')-$outcome->sum('out_balance')) }}
 </span>
 <table id="data-table" class="table dt-responsive nowrap" style="width:100%">
     <thead class="thead-dark">

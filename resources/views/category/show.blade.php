@@ -26,16 +26,9 @@
 </style>
 <span class="form-inline my-2 d-flex justify-content-between">
     <button class="btn btn-primary my-2" data-toggle="modal" data-target="#OutcomeCreate">Tambah Data Pengeluaran</button>
-    
-    @if (session('status'))
-        <div class="alert alert-success alert-dismissible fade show">
-            {{ session('status') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-
+    <span class="btn btn-outline-secondary mb-3">
+    SALDO : {{formatRp($balance)}}
+    </span>
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Pilih Kegiatan
@@ -47,6 +40,17 @@
         </div>
     </div>
 </span>
+<span class="form-inline my-2 d-flex justify-content-center">
+    @if (session('status'))
+        <div class="alert alert-success alert-dismissible fade show">
+            {{ session('status') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+</span>
+
 
 <table id="data-table" class="table dt-responsive nowrap" style="width:100%">
 <thead class="thead-dark">
@@ -76,7 +80,7 @@
             </a>
             <a href="#" data-target="#PrintData" data-toggle="modal" class="badge badge-primary printData"
                 data-sumber="" data-harga="{{ terbilang($item->out_balance) }}" data-uraian="{{ $item->name }} - {{ $item->out_description }}" data-rp="{{ formatRp($item->out_balance) }},-" 
-                title="Cetak data">
+                title="Cetak kwitansi">
                     <i class="fa fa-print" aria-hidden="true"></i>
             </a>
         </td>
@@ -98,14 +102,7 @@
         <form method="post" action="{{ action('OutcomesController@store')}}">
             <div class="modal-body">
                 @csrf
-                <div class="form-group">
-                <label for="source">Sumber</label>
-                <select class="form-control" name="source_id" id="source">
-                    @foreach ($source as $src)
-                    <option value="{{$src->id}}">{{$src->source}}</option>
-                    @endforeach
-                </select>
-                </div>
+                <input type="hidden" class="form-control" name="source_id" value="{{ $source }}"/>
                 <div class="form-group">
                 <label for="category">Kegiatan</label>
                 <input type="hidden" class="form-control" name="out_category" value="{{ $disabled }}"/>
@@ -149,14 +146,6 @@
         <form method="post" action="">
             <div class="modal-body">
                 @csrf
-                <div class="form-group">
-                <label for="source">Sumber</label>
-                <select class="form-control" name="source_id" id="source">
-                    @foreach ($source as $src)
-                    <option value="{{$src->id}}">{{$src->source}}</option>
-                    @endforeach
-                </select>
-                </div>
                 <div class="form-group">
                 <label for="category">Kegiatan</label>
                 <select class="form-control" name="out_category" id="category">

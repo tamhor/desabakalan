@@ -26,7 +26,6 @@
 </style>
 
 <form class="form-inline my-2 d-flex justify-content-between">
-<a href="/outcome/create" class="btn btn-primary my-2">Tambah Data Pengeluaran</a>
 
 @if (session('status'))
     <div class="alert alert-success alert-dismissible fade show">
@@ -37,9 +36,9 @@
     </div>
 @endif
 </form>
-    <span class="btn btn-outline-secondary mb-3">
+    {{-- <span class="btn btn-outline-secondary mb-3">
         SALDO : {{ formatRp($income->sum('in_balance')-$outcome->sum('out_balance')) }}
-    </span>
+    </span> --}}
 <table id="data-table" class="table dt-responsive nowrap" style="width:100%">
     <thead class="thead-dark">
       <tr>
