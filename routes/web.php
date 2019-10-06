@@ -18,8 +18,10 @@ Route::get('/', function () {
 Route::resource('category', 'CategoriesController');
 Route::resource('outcome', 'OutcomesController');
 Route::resource('income', 'IncomesController');
+Route::get('/report', 'OutcomesController@index');
 Route::get('outcome/source/{id}', 'OutcomesController@index');
 Route::get('category/show/{id}', 'CategoriesController@show');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

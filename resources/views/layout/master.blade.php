@@ -33,9 +33,9 @@
           </li>
         </ul>
         <ul class="form-inline my-2 my-lg-0">
-              <div class="dropdown">
+              {{-- <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="{{ url('/outcome/source/0') }}" id="navbarDropdown" role="button">
-                  Laporan
+                  Sumber
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="{{ url('/outcome/source/1') }}" title="Pendapatan Asli Desa">Pendapatan Asli Desa</a>
@@ -43,8 +43,8 @@
                   <a class="dropdown-item" href="{{ url('/outcome/source/3') }}" title="Hasil Pajak">Dana Desa</a>
                   <a class="dropdown-item" href="{{ url('/outcome/source/4') }}" title="Hasil Pajak">Bagi Hasil Pajak & Restribusi</a>
                 </div>
-              </div>
-          {{-- <a href="{{ url('/income') }}" class="btn btn-success ml-2 my-sm-0">Penerimaan</a> --}}
+              </div> --}}
+          <a href="{{ url('/report') }}" class="btn btn-success ml-2 my-sm-0">Laporan</a>
         </ul>
       </div>
     </nav>

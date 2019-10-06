@@ -9,27 +9,43 @@ use PDF;
 
 class OutcomesController extends Controller{
 
-    public function index($id){
-        if (!empty($id)) {
-            $income = DB::table('incomes')->where('in_category', $id)->get();
-            $title = DB::table('sources')->where('id', $id)->value('source');
+    public function index(Request $request){
+        // if (!empty($id)) {
+        //     $income = DB::table('incomes')->where('in_category', $id)->get();
+        //     $title = DB::table('sources')->where('id', $id)->value('source');
+        //     $outcome = DB::table('outcomes')
+        //                 ->join('sources', 'outcomes.source_id', '=', 'sources.id')
+        //                 ->join('categories', 'outcomes.out_category', '=', 'categories.id')
+        //                 ->select('outcomes.*', 'sources.source as source', 'categories.name as name')
+        //                 ->where('outcomes.source_id', $id)
+        //                 ->get();
+        // }else{
+        //     $income = DB::table('incomes')->get();
+        //     $title = "Data Pengeluaran";
+        //     $outcome = DB::table('outcomes')
+        //     ->join('sources', 'outcomes.source_id', '=', 'sources.id')
+        //     ->join('categories', 'outcomes.out_category', '=', 'categories.id')
+        //     ->select('outcomes.*', 'sources.source as source', 'categories.name as name')
+        //     ->get();
+        // }
+
+        if($request->has('source')){
             $outcome = DB::table('outcomes')
                         ->join('sources', 'outcomes.source_id', '=', 'sources.id')
                         ->join('categories', 'outcomes.out_category', '=', 'categories.id')
                         ->select('outcomes.*', 'sources.source as source', 'categories.name as name')
-                        ->where('outcomes.source_id', $id)
+                        ->where('outcomes.source_id', $request->source)
                         ->get();
         }else{
-            $income = DB::table('incomes')->get();
-            $title = "Data Pengeluaran";
             $outcome = DB::table('outcomes')
-            ->join('sources', 'outcomes.source_id', '=', 'sources.id')
-            ->join('categories', 'outcomes.out_category', '=', 'categories.id')
-            ->select('outcomes.*', 'sources.source as source', 'categories.name as name')
-            ->get();
+                        ->join('sources', 'outcomes.source_id', '=', 'sources.id')
+                        ->join('categories', 'outcomes.out_category', '=', 'categories.id')
+                        ->select('outcomes.*', 'sources.source as source', 'categories.name as name')
+                        ->get();
         }
-        // dd($outcome->name);
-        return view('outcome.outcome', compact('outcome','income','title'));
+
+
+        return view('outcome.report.report', compact('outcome','income','title'));
     }
     
     public function create(){
@@ -91,8 +107,9 @@ class OutcomesController extends Controller{
         return redirect('/category/show/'.$outcome->out_category)->with('status', 'Data sudah berhasil dihapus!');
     }
 
-    public function report(){
-
-        return view('outcome.report');
-    }
+    // public function report(Request $request){
+    //     $report = Outcome::where('source_id', 'LIKE', $request->source);
+    //     dd($report);
+    //     return view('outcome.report.report', compact('report'));
+    // }
 }
