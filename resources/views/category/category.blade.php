@@ -20,10 +20,9 @@
 <thead class="thead-dark">
   <tr>
     <th scope="col">No</th>
-    <th scope="col">Tanggal</th>
     <th scope="col">Sumber</th>
     <th scope="col">Kegiatan</th>
-    <th scope="col">Penerimaan</th>
+    <th scope="col">RAB</th>
     <th scope="col">Aksi</th>
   </tr>
 </thead>
@@ -31,7 +30,6 @@
     @foreach ($category as $item)
     <tr>
         <td scope="row">{{ $loop->iteration }}</td>
-        <td>{{ date('d F y', strtotime($item->created_at)) }}</td>
         <td>{{ $item->source->source }}</td>
         <td>{{ $item->name }}</td>
         <td>{{ formatRp($item->balance) }}</td>

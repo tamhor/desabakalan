@@ -19,7 +19,7 @@
     </style>
 
   </head>
-  <body>
+  <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
       <a class="navbar-brand" href="/">Nalakab</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +29,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/category') }}">Kegiatan</a>
+            <a class="nav-link" href="{{ url('/category') }}">KEGIATAN</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/silpa') }}">SILPA</a>
           </li>
         </ul>
         <ul class="form-inline my-2 my-lg-0">
@@ -44,7 +47,7 @@
                   <a class="dropdown-item" href="{{ url('/outcome/source/4') }}" title="Hasil Pajak">Bagi Hasil Pajak & Restribusi</a>
                 </div>
               </div> --}}
-          <a href="{{ url('/report') }}" class="btn btn-success ml-2 my-sm-0">Laporan</a>
+          <a href="{{ url('/report') }}" class="btn btn-success ml-2 my-sm-0">LAPORAN</a>
         </ul>
       </div>
     </nav>

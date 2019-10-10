@@ -47,7 +47,7 @@ class CategoriesController extends Controller{
         $category = DB::table('categories')->get();
         $income = DB::table('incomes')->get();
         $outcome = DB::table('outcomes')->get();
-        $balance = DB::table('categories')->where('id', $id)->value('balance')-$outcome->sum('out_balance');
+        $balance = DB::table('categories')->where('id', $id)->value('balance')-$outcome->where('out_category', $id)->sum('out_balance');
         // dd($source);
         return view('category.show', compact('data','source', 'title', 'category', 'disabled','income','outcome', 'balance'));
     }

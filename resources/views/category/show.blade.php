@@ -25,10 +25,28 @@
     }
 </style>
 <span class="form-inline my-2 d-flex justify-content-between">
-    <button class="btn btn-primary my-2" data-toggle="modal" data-target="#OutcomeCreate">Tambah Data Pengeluaran</button>
-    <span class="btn btn-outline-secondary mb-3">
-    SALDO : {{formatRp($balance)}}
-    </span>
+    <button class="btn btn-primary my-2" onclick="reset()" data-toggle="modal" data-target="#OutcomeCreate"
+    @if ($balance == 0)
+        disabled title="Dana untuk kegiatan ini sudah Habis"
+    @endif
+    >Tambah Data Pengeluaran</button>
+    <div class="btn-group">
+        @if ($balance == 0)
+            <span class="btn btn-outline-success">
+                SILPA : {{formatRp($balance)}}
+            </span>
+            <button class="btn btn-success align-self-start" title="SILPA sudah dimasukkan">
+                <i class="fa fa-check" aria-hidden="true"></i>
+            </button>
+        @else
+            <span class="btn btn-outline-danger">
+                SILPA : {{formatRp($balance)}}
+            </span>
+            <button data-toggle="modal" id="Silpa" data-target="#OutcomeCreate" class="btn btn-danger align-self-start" title="Masukkan SILPA" data-desc="SILPA" data-rp="{{$balance}}" data-info="Silpa kegiatan">
+                <i class="fa fa-close" aria-hidden="true"></i>
+            </button>
+        @endif
+    </div>
     <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Pilih Kegiatan
@@ -72,7 +90,7 @@
         <td>{{ formatRp($item->out_balance) }}</td>
         <td>{{ $item->out_info }}</td>
         <td>
-            <a href="{{ url('/outcome/'.$item->id.'/edit') }}" class="badge badge-success" title="Ubah data">
+            <a href="{{ url('outcome/'.$item->id.'/edit') }}" class="badge badge-success" title="Ubah data">
                 <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
             <a href="#" data-target="#HapusData" class="badge badge-danger deleteData" data-toggle="modal" data-id="{{ $item->id }}" title="Hapus data">
@@ -99,7 +117,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form method="post" action="{{ action('OutcomesController@store')}}">
+        <form id="myForm" method="post" action="{{ action('OutcomesController@store')}}">
             <div class="modal-body">
                 @csrf
                 <input type="hidden" class="form-control" name="source_id" value="{{ $source }}"/>
@@ -109,20 +127,20 @@
                 <input type="text" class="form-control" value="{{ $title }}" disabled/>
                 </div>
                 <div class="form-group">
-                    <label for="description">Kegiatan</label>
-                    <input type="text" class="form-control @error('out_description') is-invalid @enderror" name="out_description" id="description" placeholder="Uraian kegiatan" value="{{old('out_description')}}">
+                    <label for="description">Pembelian</label>
+                    <input type="text" class="form-control @error('out_description') is-invalid @enderror" name="out_description" id="description" placeholder="Uraian kegiatan" value="">
                     @error('out_description')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
                 <div class="form-group">
                     <label for="price">Harga</label>
-                    <input type="text" class="form-control @error('out_balance') is-invalid @enderror" name="out_balance" id="rupiah" placeholder="Harga" value="{{old('out_balance')}}">
+                    <input type="text" class="form-control @error('out_balance') is-invalid @enderror" name="out_balance" id="rupiah" placeholder="Harga" value="">
                     @error('out_balance')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     <small class="form-text text-muted"></small>
                 </div>
                 <input type="hidden" id="rupiah"/>
                 <div class="form-group">
                     <label for="info">Information</label>
-                    <input type="text" class="form-control" name="out_info" id="info" placeholder="Keterangan Tambahan" value="{{old('out_info')}}">
+                    <input type="text" class="form-control" name="out_info" id="info" placeholder="Keterangan Tambahan" value="">
                     <small id="info" class="form-text text-muted">(Optional)</small>
                 </div>
                 <button type="submit" id="submit" class="btn btn-primary">Tambah Data</button>
@@ -265,6 +283,16 @@ $(document).on('click', '.deleteData', function () {
 });
 </script>
 <script>
+    $(document).on('click', '#Silpa', function () {
+        var desc = $(this).data('desc');
+        var rp = $(this).data('rp');
+        var info = $(this).data('info');
+        $('#description').val(desc);
+        $('#rupiah').val(rp);
+        $('#info').val(info);
+    });
+</script>
+<script>
     $(document).on('click', '.printData', function () {
         var sumber = $(this).data('sumber');
         var harga = $(this).data('harga');
@@ -275,6 +303,11 @@ $(document).on('click', '.deleteData', function () {
         $('#uraian').val(uraian);
         $('#rp').val(rp);
     });
+</script>
+<script>
+function reset() {
+    document.getElementById("myForm").reset();
+}
 </script>
 <script>
     document.getElementById("btnPrint").onclick = function () {

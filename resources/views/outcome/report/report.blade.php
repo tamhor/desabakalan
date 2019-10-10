@@ -6,15 +6,16 @@
 <form method="get" action="/report">
     <div class="form-inline justify-content-around">
         <select name="source" class="form-control" id="sumber">
-            <option value="1">Pendapatan Asli Desa</option>
-            <option value="2">Alokasi Dana Desa</option>
-            <option value="3">Dana Desa</option>
-            <option value="4">Bagi Hasil Pajak & Restribusi</option>
+        @foreach ($source as $src)            
+        <option value="{{ $src->id }}" @if ($src->id == $request->source)
+                selected
+              @endif>{{ $src->source }}</option>
+        @endforeach
         </select>
         <label>Dari</label>
-        <input class="form-control" type="date"/>
+        <input name="from" class="form-control" type="date" value="{{ $request->from }}"/>
         <label>Sampai</label>
-        <input class="form-control" type="date"/>
+        <input name="to" class="form-control" type="date" value="{{ $request->to }}"/>
         <button class="btn btn-primary" type="submit">
             <i class="fa fa-search" aria-hidden="true"></i>
         </button>

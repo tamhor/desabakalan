@@ -19,6 +19,7 @@ Route::resource('category', 'CategoriesController');
 Route::resource('outcome', 'OutcomesController');
 Route::resource('income', 'IncomesController');
 Route::get('/report', 'OutcomesController@index');
+Route::get('/silpa', 'OutcomesController@silpa');
 Route::get('outcome/source/{id}', 'OutcomesController@index');
 Route::get('category/show/{id}', 'CategoriesController@show');
 
